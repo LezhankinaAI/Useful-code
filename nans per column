@@ -1,0 +1,12 @@
+stats3 = pd.DataFrame(columns=['nans', 'proportion'], index=df.columns)
+size = df.shape[0]
+for elem in df.columns:
+    cnt = df[elem].isna().sum()
+    stats3.loc[elem, 'nans'] = cnt
+    stats3.loc[elem, 'proportion'] = cnt / size * 100
+display(stats3)
+plt.hist(stats3['proportion'], color='deeppink')
+plt.title('Density of nans in a feature')
+plt.xlabel('percentage of nans')
+plt.ylabel('density')
+plt.show()
