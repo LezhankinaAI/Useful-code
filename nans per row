@@ -1,0 +1,16 @@
+
+stats2 = pd.DataFrame(index=['0%', '1% - 25%', '25% - 50%', '50% - 75%', '75% - 99%', '100%'], columns=['# nan'])
+size = df.shape[1]
+nans = df.isna().sum(axis=1) / size * 100
+stats2.loc['0%', '# nan'] = (nans == 0).sum()
+stats2.loc['1% - 25%', '# nan'] = ((nans > 0) & (nans < 25)).sum()
+stats2.loc['25% - 50%', '# nan'] = ((nans >= 25) & (nans < 50)).sum()
+stats2.loc['50% - 75%', '# nan'] = ((nans >= 50) & (nans < 75)).sum()
+stats2.loc['75% - 99%', '# nan'] = ((nans >= 75) & (nans <= 99)).sum()
+stats2.loc['100%', '# nan'] = (nans == 100).sum()
+display(stats2)
+plt.hist(nans, color='gold')
+plt.title('Density of nans in a row')
+plt.xlabel('number of nans')
+plt.ylabel('density')
+plt.show()
